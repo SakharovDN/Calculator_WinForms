@@ -35,7 +35,7 @@
             this.oneButton = new System.Windows.Forms.Button();
             this.secondButton = new System.Windows.Forms.Button();
             this.threeButton = new System.Windows.Forms.Button();
-            this.substractButton = new System.Windows.Forms.Button();
+            this.subtractButton = new System.Windows.Forms.Button();
             this.multiplyButton = new System.Windows.Forms.Button();
             this.sixButton = new System.Windows.Forms.Button();
             this.fiveButton = new System.Windows.Forms.Button();
@@ -58,6 +58,7 @@
             this.zeroButton.TabIndex = 1;
             this.zeroButton.Text = "0";
             this.zeroButton.UseVisualStyleBackColor = true;
+            this.zeroButton.Click += new System.EventHandler(this.digitButton_Click);
             // 
             // dotButton
             // 
@@ -78,6 +79,7 @@
             this.equalButton.TabIndex = 18;
             this.equalButton.Text = "=";
             this.equalButton.UseVisualStyleBackColor = true;
+            this.equalButton.Click += new System.EventHandler(this.equalButton_Click);
             // 
             // plusButton
             // 
@@ -88,6 +90,7 @@
             this.plusButton.TabIndex = 19;
             this.plusButton.Text = "+";
             this.plusButton.UseVisualStyleBackColor = true;
+            this.plusButton.Click += new System.EventHandler(this.operatorButton_Click);
             // 
             // oneButton
             // 
@@ -98,6 +101,7 @@
             this.oneButton.TabIndex = 20;
             this.oneButton.Text = "1";
             this.oneButton.UseVisualStyleBackColor = true;
+            this.oneButton.Click += new System.EventHandler(this.digitButton_Click);
             // 
             // secondButton
             // 
@@ -108,6 +112,7 @@
             this.secondButton.TabIndex = 21;
             this.secondButton.Text = "2";
             this.secondButton.UseVisualStyleBackColor = true;
+            this.secondButton.Click += new System.EventHandler(this.digitButton_Click);
             // 
             // threeButton
             // 
@@ -118,16 +123,18 @@
             this.threeButton.TabIndex = 22;
             this.threeButton.Text = "3";
             this.threeButton.UseVisualStyleBackColor = true;
+            this.threeButton.Click += new System.EventHandler(this.digitButton_Click);
             // 
-            // substractButton
+            // subtractButton
             // 
-            this.substractButton.Font = new System.Drawing.Font("Segoe UI", 16F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
-            this.substractButton.Location = new System.Drawing.Point(303, 280);
-            this.substractButton.Name = "substractButton";
-            this.substractButton.Size = new System.Drawing.Size(91, 50);
-            this.substractButton.TabIndex = 23;
-            this.substractButton.Text = "-";
-            this.substractButton.UseVisualStyleBackColor = true;
+            this.subtractButton.Font = new System.Drawing.Font("Segoe UI", 16F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
+            this.subtractButton.Location = new System.Drawing.Point(303, 280);
+            this.subtractButton.Name = "subtractButton";
+            this.subtractButton.Size = new System.Drawing.Size(91, 50);
+            this.subtractButton.TabIndex = 23;
+            this.subtractButton.Text = "-";
+            this.subtractButton.UseVisualStyleBackColor = true;
+            this.subtractButton.Click += new System.EventHandler(this.operatorButton_Click);
             // 
             // multiplyButton
             // 
@@ -138,6 +145,7 @@
             this.multiplyButton.TabIndex = 24;
             this.multiplyButton.Text = "*";
             this.multiplyButton.UseVisualStyleBackColor = true;
+            this.multiplyButton.Click += new System.EventHandler(this.operatorButton_Click);
             // 
             // sixButton
             // 
@@ -148,6 +156,7 @@
             this.sixButton.TabIndex = 25;
             this.sixButton.Text = "6";
             this.sixButton.UseVisualStyleBackColor = true;
+            this.sixButton.Click += new System.EventHandler(this.digitButton_Click);
             // 
             // fiveButton
             // 
@@ -158,6 +167,7 @@
             this.fiveButton.TabIndex = 26;
             this.fiveButton.Text = "5";
             this.fiveButton.UseVisualStyleBackColor = true;
+            this.fiveButton.Click += new System.EventHandler(this.digitButton_Click);
             // 
             // fourButton
             // 
@@ -168,6 +178,7 @@
             this.fourButton.TabIndex = 27;
             this.fourButton.Text = "4";
             this.fourButton.UseVisualStyleBackColor = true;
+            this.fourButton.Click += new System.EventHandler(this.digitButton_Click);
             // 
             // sevenButton
             // 
@@ -178,6 +189,7 @@
             this.sevenButton.TabIndex = 28;
             this.sevenButton.Text = "7";
             this.sevenButton.UseVisualStyleBackColor = true;
+            this.sevenButton.Click += new System.EventHandler(this.digitButton_Click);
             // 
             // eightButton
             // 
@@ -188,6 +200,7 @@
             this.eightButton.TabIndex = 29;
             this.eightButton.Text = "8";
             this.eightButton.UseVisualStyleBackColor = true;
+            this.eightButton.Click += new System.EventHandler(this.digitButton_Click);
             // 
             // nineButton
             // 
@@ -198,6 +211,7 @@
             this.nineButton.TabIndex = 30;
             this.nineButton.Text = "9";
             this.nineButton.UseVisualStyleBackColor = true;
+            this.nineButton.Click += new System.EventHandler(this.digitButton_Click);
             // 
             // divideButton
             // 
@@ -208,6 +222,7 @@
             this.divideButton.TabIndex = 31;
             this.divideButton.Text = "/";
             this.divideButton.UseVisualStyleBackColor = true;
+            this.divideButton.Click += new System.EventHandler(this.operatorButton_Click);
             // 
             // backspaceButton
             // 
@@ -231,13 +246,15 @@
             // 
             // resultLabel
             // 
+            this.resultLabel.Anchor = System.Windows.Forms.AnchorStyles.Right;
             this.resultLabel.AutoSize = true;
             this.resultLabel.Font = new System.Drawing.Font("Segoe UI", 32F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
-            this.resultLabel.Location = new System.Drawing.Point(346, 50);
+            this.resultLabel.Location = new System.Drawing.Point(12, 55);
             this.resultLabel.Name = "resultLabel";
             this.resultLabel.Size = new System.Drawing.Size(48, 59);
             this.resultLabel.TabIndex = 34;
             this.resultLabel.Text = "0";
+            this.resultLabel.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
             // 
             // MainForm
             // 
@@ -255,7 +272,7 @@
             this.Controls.Add(this.fiveButton);
             this.Controls.Add(this.sixButton);
             this.Controls.Add(this.multiplyButton);
-            this.Controls.Add(this.substractButton);
+            this.Controls.Add(this.subtractButton);
             this.Controls.Add(this.threeButton);
             this.Controls.Add(this.secondButton);
             this.Controls.Add(this.oneButton);
@@ -280,7 +297,7 @@
         private Button oneButton;
         private Button secondButton;
         private Button threeButton;
-        private Button substractButton;
+        private Button subtractButton;
         private Button multiplyButton;
         private Button sixButton;
         private Button fiveButton;

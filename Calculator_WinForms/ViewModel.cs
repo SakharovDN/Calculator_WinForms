@@ -19,7 +19,7 @@ public class ViewModel : INotifyPropertyChanged
 
     #region Properties
 
-    public Equation Equation { get; }
+    public Equation Equation { get; private set; }
 
     public string ResultText
     {
@@ -117,6 +117,12 @@ public class ViewModel : INotifyPropertyChanged
         }
 
         ResultText = result.ToString();
+    }
+
+    public void Cancel()
+    {
+        ResultText = ZERO_STRING;
+        Equation = new Equation();
     }
 
     protected virtual void OnPropertyChanged([CallerMemberName] string? propertyName = null)

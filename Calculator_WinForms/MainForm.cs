@@ -60,4 +60,9 @@ public partial class MainForm : Form
     {
         _viewModel.ShowResult();
     }
+
+    private void cancelButton_Click(object sender, EventArgs e)
+    {
+        _viewModel.Cancel();
+    }
 }

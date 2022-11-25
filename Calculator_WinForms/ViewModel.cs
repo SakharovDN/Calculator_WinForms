@@ -15,6 +15,7 @@ public class ViewModel : INotifyPropertyChanged
 	#region Fields
 
 	private string _resultText;
+	private string _equationText;
 	private bool _isShowingResult;
 
 	#endregion
@@ -33,6 +34,15 @@ public class ViewModel : INotifyPropertyChanged
 		}
 	}
 
+	public string EquationText
+	{
+		get => _equationText;
+		private set
+		{
+			_equationText = value;
+			OnPropertyChanged();
+		}
+	}
 	#endregion
 
 	#region Events
@@ -45,6 +55,7 @@ public class ViewModel : INotifyPropertyChanged
 
 	public ViewModel()
 	{
+		_equationText = string.Empty;
 		_resultText = ZERO_STRING;
 		Equation = new Equation();
 	}
@@ -81,12 +92,19 @@ public class ViewModel : INotifyPropertyChanged
 	{
 		Equation.SetOperator(operatorString);
 		ResultText = ZERO_STRING;
+		EquationText = Equation.GetEquationText();
 		_isShowingResult = false;
 	}
 
 	public void ShowResult()
 	{
-		ResultText = Equation.Result.ToString();
+		if (!Equation.IsCalculatable)
+		{
+			return;
+		}
+
+		ResultText = Equation.GetResult().ToString();
+		EquationText = string.Empty;
 		_isShowingResult = true;
 	}
 
@@ -94,6 +112,7 @@ public class ViewModel : INotifyPropertyChanged
 	{
 		ResultText = ZERO_STRING;
 		Equation = new Equation();
+		EquationText = string.Empty;
 		_isShowingResult = false;
 	}
 

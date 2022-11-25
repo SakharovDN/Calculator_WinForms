@@ -47,6 +47,7 @@
             this.backspaceButton = new System.Windows.Forms.Button();
             this.cancelButton = new System.Windows.Forms.Button();
             this.resultLabel = new System.Windows.Forms.Label();
+            this.equationLabel = new System.Windows.Forms.Label();
             this.SuspendLayout();
             // 
             // zeroButton
@@ -259,11 +260,23 @@
             this.resultLabel.Text = "0";
             this.resultLabel.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
             // 
+            // equationLabel
+            // 
+            this.equationLabel.Anchor = System.Windows.Forms.AnchorStyles.Right;
+            this.equationLabel.AutoSize = true;
+            this.equationLabel.Font = new System.Drawing.Font("Segoe UI", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
+            this.equationLabel.Location = new System.Drawing.Point(12, 30);
+            this.equationLabel.Name = "equationLabel";
+            this.equationLabel.Size = new System.Drawing.Size(0, 25);
+            this.equationLabel.TabIndex = 35;
+            this.equationLabel.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
+            // 
             // MainForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 15F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(406, 396);
+            this.Controls.Add(this.equationLabel);
             this.Controls.Add(this.resultLabel);
             this.Controls.Add(this.cancelButton);
             this.Controls.Add(this.backspaceButton);
@@ -312,5 +325,6 @@
         private Button backspaceButton;
         private Button cancelButton;
         private Label resultLabel;
+        private Label equationLabel;
     }
 }

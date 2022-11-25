@@ -1,109 +1,128 @@
-﻿namespace Calculator_WinForms
+﻿namespace Calculator_WinForms;
+
+public class Equation
 {
-	public class Equation
-	{
-		#region Properties
+    #region Properties
 
-		public List<double> Operands { get; }
+    public List<double> Operands { get; }
 
-		public List<OperatorType> Operators { get; }
+    public List<OperatorType> Operators { get; }
 
-		public bool IsCalculatable => Operators.Count > 0;
+    public bool IsCalculatable => Operators.Count > 0 && Operands.Count > Operators.Count;
 
-		#endregion
+    #endregion
 
-		#region Constructors
+    #region Constructors
 
-		public Equation()
-		{
-			Operands = new List<double>
-			{
-				0,
-			};
-			Operators = new List<OperatorType>();
-		}
+    public Equation()
+    {
+        Operands = new List<double>();
+        Operators = new List<OperatorType>();
+    }
 
-		#endregion
+    #endregion
 
-		#region Methods
+    #region Methods
 
-		public void SetOperand(string operand)
-		{
-			Operands[^1] = double.Parse(operand);
-		}
+    public void SetOperand(string operand)
+    {
+        double value = double.Parse(operand);
 
-		public void SetOperator(string operatorString)
-		{
-			OperatorType selectedOperator = operatorString switch
-			                                {
-				                                "+" => OperatorType.Plus,
-				                                "-" => OperatorType.Subtract,
-				                                "/" => OperatorType.Divide,
-				                                "*" => OperatorType.Multiply,
-				                                _ => throw new ArgumentOutOfRangeException(nameof(operatorString), operatorString, null),
-			                                };
-			Operators.Add(selectedOperator);
-			Operands.Add(0);
-		}
+        if (Operands.Count == Operators.Count)
+        {
+            Operands.Add(value);
+        }
+        else
+        {
+            Operands[^1] = value;
+        }
+    }
 
-		public string GetEquationText()
-		{
-			string equationText = string.Empty;
+    public void SetOperator(string operatorString)
+    {
+        OperatorType selectedOperator = operatorString switch
+                                        {
+                                            "+" => OperatorType.Plus,
+                                            "-" => OperatorType.Subtract,
+                                            "/" => OperatorType.Divide,
+                                            "*" => OperatorType.Multiply,
+                                            _ => throw new ArgumentOutOfRangeException(nameof(operatorString), operatorString, null)
+                                        };
 
-			for (int i = 0; i < Operators.Count; i++)
-			{
-				equationText += $" {Operands[i]}";
-				equationText += Operators[i] switch
-				                {
-					                OperatorType.Plus => " +",
-					                OperatorType.Divide => " /",
-					                OperatorType.Subtract => " -",
-					                OperatorType.Multiply => " *",
-					                _ => throw new ArgumentOutOfRangeException(),
-				                };
-			}
+        if (Operands.Count == Operators.Count)
+        {
+            Operators[^1] = selectedOperator;
+        }
+        else
+        {
+            Operators.Add(selectedOperator);
+        }
+    }
 
-			return equationText;
-		}
+    public string GetEquationText()
+    {
+        string equationText = string.Empty;
 
-		public double GetResult()
-		{
-			double result = Operands.First();
+        for (int i = 0; i < Operators.Count; i++)
+        {
+            equationText += $" {Operands[i]}";
+            equationText += Operators[i] switch
+                            {
+                                OperatorType.Plus => " +",
+                                OperatorType.Divide => " /",
+                                OperatorType.Subtract => " -",
+                                OperatorType.Multiply => " *",
+                                _ => throw new ArgumentOutOfRangeException()
+                            };
+        }
 
-			for (int i = 0; i < Operators.Count; i++)
-			{
-				double operand = Operands[i + 1];
+        return equationText;
+    }
 
-				switch (Operators[i])
-				{
-					case OperatorType.Plus:
-						result += operand;
+    public double GetResult()
+    {
+        double result = Calculate();
+        MergeOperands(result);
 
-						break;
-					case OperatorType.Divide:
-						result /= operand;
+        return result;
+    }
 
-						break;
-					case OperatorType.Subtract:
-						result -= operand;
+    private double Calculate()
+    {
+        double result = Operands.First();
 
-						break;
-					case OperatorType.Multiply:
-						result *= operand;
+        for (int i = 0; i < Operators.Count; i++)
+        {
+            double operand = Operands[i + 1];
 
-						break;
-					default:
-						throw new ArgumentOutOfRangeException();
-				}
-			}
+            switch (Operators[i])
+            {
+                case OperatorType.Plus:
+                    result += operand;
+                    break;
+                case OperatorType.Divide:
+                    result /= operand;
+                    break;
+                case OperatorType.Subtract:
+                    result -= operand;
+                    break;
+                case OperatorType.Multiply:
+                    result *= operand;
+                    break;
+                default:
+                    throw new ArgumentOutOfRangeException();
+            }
+        }
 
-			Operands.Clear();
-			Operators.Clear();
-			Operands.Add(result);
+        return result;
+    }
 
-			return result;
-		}
+    private void MergeOperands(double mergeValue)
+    {
+        Operands.Clear();
+        Operators.Clear();
+        Operands.Add(mergeValue);
+    }
 
-		#endregion
-	}
+    #endregion
 }

@@ -45,7 +45,7 @@ public partial class MainForm : Form
             return;
         }
 
-        _viewModel.SetDigit(button.Text);
+        _viewModel.OnDigitButtonPressed(button.Text);
     }
 
     private void operatorButton_Click(object sender, EventArgs e)
@@ -55,12 +55,12 @@ public partial class MainForm : Form
             return;
         }
 
-        _viewModel.SetOperator(button.Text);
+        _viewModel.OnOperatorButtonPressed(button.Text);
     }
 
     private void equalButton_Click(object sender, EventArgs e)
     {
-        _viewModel.ShowResult();
+        _viewModel.OnEqualButtonPressed();
     }
 
     private void cancelButton_Click(object sender, EventArgs e)
@@ -70,7 +70,7 @@ public partial class MainForm : Form
 
     private void backspaceButton_Click(object sender, EventArgs e)
     {
-        _viewModel.OnBackspaceClicked();
+        _viewModel.OnBackspaceButtonPressed();
     }
 
     private void pointButton_Click(object sender, EventArgs e)
@@ -82,26 +82,26 @@ public partial class MainForm : Form
     {
         if (int.TryParse(e.KeyChar.ToString(), out int digit))
         {
-            _viewModel.SetDigit(digit.ToString());
+            _viewModel.OnDigitButtonPressed(digit.ToString());
         }
         else
         {
             switch (e.KeyChar)
             {
                 case '-' or '+' or '/' or '*':
-                    _viewModel.SetOperator(e.KeyChar.ToString());
+                    _viewModel.OnOperatorButtonPressed(e.KeyChar.ToString());
                     break;
                 case ',':
                     _viewModel.SetPoint();
                     break;
                 case '\b':
-                    _viewModel.OnBackspaceClicked();
+                    _viewModel.OnBackspaceButtonPressed();
                     break;
                 case '\u001b':
                     _viewModel.Cancel();
                     break;
                 case '=':
-                    _viewModel.ShowResult();
+                    _viewModel.OnEqualButtonPressed();
                     break;
             }
         }

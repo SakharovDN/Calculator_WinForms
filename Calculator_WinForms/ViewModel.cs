@@ -5,130 +5,131 @@ using System.Runtime.CompilerServices;
 
 public class ViewModel : INotifyPropertyChanged
 {
-    #region Constants
+	#region Constants
 
-    public const string ZERO_STRING = "0";
+	public const string ZERO_STRING = "0";
+	public const string POINT_STRING = ",";
 
-    #endregion
+	#endregion
 
-    #region Fields
+	#region Fields
 
-    private string _resultText = ZERO_STRING;
+	private string _resultText;
+	private bool _isShowingResult;
 
-    #endregion
+	#endregion
 
-    #region Properties
+	#region Properties
 
-    public Equation Equation { get; private set; }
+	public Equation Equation { get; private set; }
 
-    public string ResultText
-    {
-        get => _resultText;
-        private set
-        {
-            _resultText = value;
-            OnPropertyChanged();
-        }
-    }
+	public string ResultText
+	{
+		get => _resultText;
+		private set
+		{
+			_resultText = value;
+			OnPropertyChanged();
+		}
+	}
 
-    #endregion
+	#endregion
 
-    #region Events
+	#region Events
 
-    public event PropertyChangedEventHandler? PropertyChanged;
+	public event PropertyChangedEventHandler? PropertyChanged;
 
-    #endregion
+	#endregion
 
-    #region Constructors
+	#region Constructors
 
-    public ViewModel()
-    {
-        Equation = new Equation();
-    }
+	public ViewModel()
+	{
+		_resultText = ZERO_STRING;
+		Equation = new Equation();
+	}
 
-    #endregion
+	#endregion
 
-    #region Methods
+	#region Methods
 
-    public void SetDigit(string digitString)
-    {
-        if (!int.TryParse(digitString, out int digit))
-        {
-            return;
-        }
+	public void SetDigit(string digitString)
+	{
+		if (_isShowingResult)
+		{
+			Cancel();
+		}
 
-        if (ResultText == ZERO_STRING)
-        {
-            ResultText = digitString;
-        }
-        else
-        {
-            ResultText += digitString;
-        }
+		if (!int.TryParse(digitString, out int _))
+		{
+			return;
+		}
 
-        if (Equation.Operator.HasValue)
-        {
-            Equation.SecondOperand = Equation.SecondOperand * 10 + digit;
-        }
-        else
-        {
-            Equation.FirstOperand = Equation.FirstOperand * 10 + digit;
-        }
-    }
+		if (ResultText == ZERO_STRING)
+		{
+			ResultText = digitString;
+		}
+		else
+		{
+			ResultText += digitString;
+		}
 
-    public void SetOperator(string operatorString)
-    {
-        Equation.Operator = operatorString switch
-                            {
-                                "+" => Operator.Plus,
-                                "-" => Operator.Subtract,
-                                "/" => Operator.Divide,
-                                "*" => Operator.Multiply,
-                                _ => Equation.Operator
-                            };
+		Equation.SetOperand(ResultText);
+	}
 
-        ResultText = ZERO_STRING;
-    }
+	public void SetOperator(string operatorString)
+	{
+		Equation.SetOperator(operatorString);
+		ResultText = ZERO_STRING;
+		_isShowingResult = false;
+	}
 
-    public void ShowResult()
-    {
-        double result;
+	public void ShowResult()
+	{
+		ResultText = Equation.Result.ToString();
+		_isShowingResult = true;
+	}
 
-        switch (Equation.Operator)
-        {
-            case Operator.Plus:
-                result = Equation.FirstOperand + Equation.SecondOperand;
+	public void Cancel()
+	{
+		ResultText = ZERO_STRING;
+		Equation = new Equation();
+		_isShowingResult = false;
+	}
 
-                break;
-            case Operator.Divide:
-                result = Equation.FirstOperand / Equation.SecondOperand;
+	public void OnBackspaceClicked()
+	{
+		if (ResultText == ZERO_STRING || _isShowingResult)
+		{
+			return;
+		}
 
-                break;
-            case Operator.Subtract:
-                result = Equation.FirstOperand - Equation.SecondOperand;
+		ResultText = ResultText.Length == 1 ? ZERO_STRING : ResultText.Remove(ResultText.Length - 1);
 
-                break;
-            case Operator.Multiply:
-                result = Equation.FirstOperand * Equation.SecondOperand;
+		Equation.SetOperand(ResultText);
+	}
 
-                break;
-            default:
-                return;
-        }
+	public void SetPoint()
+	{
+		if (_isShowingResult)
+		{
+			Cancel();
+		}
 
-        ResultText = result.ToString();
-    }
+		if (ResultText.Contains(POINT_STRING))
+		{
+			return;
+		}
 
-    public void Cancel()
-    {
-        ResultText = ZERO_STRING;
-        Equation = new Equation();
-    }
+		ResultText += POINT_STRING;
 
-    protected virtual void OnPropertyChanged([CallerMemberName] string? propertyName = null)
-    {
-        PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
-    }
+		Equation.SetOperand(ResultText);
+	}
 
-    #endregion
+	protected virtual void OnPropertyChanged([CallerMemberName] string? propertyName = null)
+	{
+		PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
+	}
+
+	#endregion
 }

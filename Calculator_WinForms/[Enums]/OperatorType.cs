@@ -1,6 +1,6 @@
 ﻿namespace Calculator_WinForms;
 
-public enum Operator
+public enum OperatorType
 {
     Plus,
     Divide,

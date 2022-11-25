@@ -23,16 +23,20 @@ public partial class MainForm : Form
 
     #region Methods
 
-    private void HandlePropertyChanged(object? sender, PropertyChangedEventArgs e)
-    {
-        switch (e.PropertyName)
-        {
-            case nameof(ViewModel.ResultText):
-                resultLabel.Text = _viewModel.ResultText;
+	private void HandlePropertyChanged(object? sender, PropertyChangedEventArgs e)
+	{
+		switch (e.PropertyName)
+		{
+			case nameof(ViewModel.ResultText):
+				resultLabel.Text = _viewModel.ResultText;
 
-                break;
-        }
-    }
+				break;
+			case nameof(ViewModel.EquationText):
+				equationLabel.Text = _viewModel.EquationText;
+
+				break;
+		}
+	}
 
     private void digitButton_Click(object sender, EventArgs e)
     {

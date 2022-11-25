@@ -29,7 +29,7 @@
         private void InitializeComponent()
         {
             this.zeroButton = new System.Windows.Forms.Button();
-            this.dotButton = new System.Windows.Forms.Button();
+            this.pointButton = new System.Windows.Forms.Button();
             this.equalButton = new System.Windows.Forms.Button();
             this.plusButton = new System.Windows.Forms.Button();
             this.oneButton = new System.Windows.Forms.Button();
@@ -60,15 +60,16 @@
             this.zeroButton.UseVisualStyleBackColor = true;
             this.zeroButton.Click += new System.EventHandler(this.digitButton_Click);
             // 
-            // dotButton
+            // pointButton
             // 
-            this.dotButton.Font = new System.Drawing.Font("Segoe UI", 16F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
-            this.dotButton.Location = new System.Drawing.Point(12, 336);
-            this.dotButton.Name = "dotButton";
-            this.dotButton.Size = new System.Drawing.Size(91, 50);
-            this.dotButton.TabIndex = 17;
-            this.dotButton.Text = ",";
-            this.dotButton.UseVisualStyleBackColor = true;
+            this.pointButton.Font = new System.Drawing.Font("Segoe UI", 16F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
+            this.pointButton.Location = new System.Drawing.Point(12, 336);
+            this.pointButton.Name = "pointButton";
+            this.pointButton.Size = new System.Drawing.Size(91, 50);
+            this.pointButton.TabIndex = 17;
+            this.pointButton.Text = ",";
+            this.pointButton.UseVisualStyleBackColor = true;
+            this.pointButton.Click += new System.EventHandler(this.pointButton_Click);
             // 
             // equalButton
             // 
@@ -233,6 +234,7 @@
             this.backspaceButton.TabIndex = 32;
             this.backspaceButton.Text = "<-";
             this.backspaceButton.UseVisualStyleBackColor = true;
+            this.backspaceButton.Click += new System.EventHandler(this.backspaceButton_Click);
             // 
             // cancelButton
             // 
@@ -279,7 +281,7 @@
             this.Controls.Add(this.oneButton);
             this.Controls.Add(this.plusButton);
             this.Controls.Add(this.equalButton);
-            this.Controls.Add(this.dotButton);
+            this.Controls.Add(this.pointButton);
             this.Controls.Add(this.zeroButton);
             this.MaximizeBox = false;
             this.Name = "MainForm";
@@ -292,7 +294,7 @@
         #endregion
 
         private Button zeroButton;
-        private Button dotButton;
+        private Button pointButton;
         private Button equalButton;
         private Button plusButton;
         private Button oneButton;

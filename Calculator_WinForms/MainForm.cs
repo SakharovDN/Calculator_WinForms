@@ -65,4 +65,14 @@ public partial class MainForm : Form
     {
         _viewModel.Cancel();
     }
+
+    private void backspaceButton_Click(object sender, EventArgs e)
+    {
+	    _viewModel.OnBackspaceClicked();
+    }
+
+    private void pointButton_Click(object sender, EventArgs e)
+    {
+	    _viewModel.SetPoint();
+    }
 }

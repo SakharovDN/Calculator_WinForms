@@ -23,20 +23,20 @@ public partial class MainForm : Form
 
     #region Methods
 
-	private void HandlePropertyChanged(object? sender, PropertyChangedEventArgs e)
-	{
-		switch (e.PropertyName)
-		{
-			case nameof(ViewModel.ResultText):
-				resultLabel.Text = _viewModel.ResultText;
+    private void HandlePropertyChanged(object? sender, PropertyChangedEventArgs e)
+    {
+        switch (e.PropertyName)
+        {
+            case nameof(ViewModel.ResultText):
+                resultLabel.Text = _viewModel.ResultText;
 
-				break;
-			case nameof(ViewModel.EquationText):
-				equationLabel.Text = _viewModel.EquationText;
+                break;
+            case nameof(ViewModel.EquationText):
+                equationLabel.Text = _viewModel.EquationText;
 
-				break;
-		}
-	}
+                break;
+        }
+    }
 
     private void digitButton_Click(object sender, EventArgs e)
     {
@@ -47,8 +47,6 @@ public partial class MainForm : Form
 
         _viewModel.SetDigit(button.Text);
     }
-
-    #endregion
 
     private void operatorButton_Click(object sender, EventArgs e)
     {
@@ -72,11 +70,42 @@ public partial class MainForm : Form
 
     private void backspaceButton_Click(object sender, EventArgs e)
     {
-	    _viewModel.OnBackspaceClicked();
+        _viewModel.OnBackspaceClicked();
     }
 
     private void pointButton_Click(object sender, EventArgs e)
     {
-	    _viewModel.SetPoint();
+        _viewModel.SetPoint();
     }
+
+    private void MainForm_KeyPress(object sender, KeyPressEventArgs e)
+    {
+        if (int.TryParse(e.KeyChar.ToString(), out int digit))
+        {
+            _viewModel.SetDigit(digit.ToString());
+        }
+        else
+        {
+            switch (e.KeyChar)
+            {
+                case '-' or '+' or '/' or '*':
+                    _viewModel.SetOperator(e.KeyChar.ToString());
+                    break;
+                case ',':
+                    _viewModel.SetPoint();
+                    break;
+                case '\b':
+                    _viewModel.OnBackspaceClicked();
+                    break;
+                case '\u001b':
+                    _viewModel.Cancel();
+                    break;
+                case '=':
+                    _viewModel.ShowResult();
+                    break;
+            }
+        }
+    }
+
+    #endregion
 }

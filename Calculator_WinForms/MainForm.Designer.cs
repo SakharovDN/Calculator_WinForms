@@ -296,9 +296,11 @@
             this.Controls.Add(this.equalButton);
             this.Controls.Add(this.pointButton);
             this.Controls.Add(this.zeroButton);
+            this.KeyPreview = true;
             this.MaximizeBox = false;
             this.Name = "MainForm";
             this.Text = "Calculator";
+            this.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.MainForm_KeyPress);
             this.ResumeLayout(false);
             this.PerformLayout();
 
